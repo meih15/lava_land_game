@@ -141,3 +141,32 @@ function generateCollisionPoints(board, numPoints) {
     }
 };
 
+
+// Function to move the player
+
+function movePlayer(board, playerPos, direction) {
+
+    let [x,y] = playerPos;
+    let length = board.length;
+    let width = board[0].length;
+    let newX = x;
+    let newY = y;
+
+
+    // Checks to see if player move is a valid move on the board. If invalid move --> 'There's a rock in the way...'
+
+    if (direction === 'forward' && x > 0) {
+        newX = x - 1;
+    } else if (direction === 'back' && x < length - 1){
+        newX = x + 1;
+    } else if( direction === 'left' && y > 0){
+        newY = y - 1;
+    } else if (direction = 'right' && y < width -1){
+        newY = y + 1;
+    } else {
+        console.log("There's a rock in your way! Choose another direction")
+        return;
+    };
+};
+
+
