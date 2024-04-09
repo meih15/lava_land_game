@@ -167,6 +167,59 @@ function movePlayer(board, playerPos, direction) {
         console.log("There's a rock in your way! Choose another direction")
         return;
     };
+
+
+
+    // Checks collisions - If the player collides, looses a life - If player runs out of them --> 'Game over ...' - If right move player can continue until they lose or win
+    
+    let collided = checkCollision(newX, newY);
+
+
+    if (collided) {
+        playerLives--;
+        if (playerLives === 0) {
+            console.log("Game Over! You burned to death T.T");
+            playerPosition = [newX, newY];
+            return;
+        };
+        console.log(`You stepped into a lava puddle and lost a life! You have ${playerLives} live(s) remaining.`)
+        playerPosition = [newX, newY];
+        return;
+    };
+
+
+    if( newX === exitPosition[0] && newY === exitPosition[1]){
+        console.log(`Congratulatulations ${playerName}! You safely escaped Lava Land, thank you for playing!`)
+        process.exit();
+    }
+
+
+    playerPosition = [newX, newY];
+
+    console.log(playerPosition);
+    console.log('Good job, that was an awesome move!');
+
 };
 
 
+function checkCollision(x, y) {
+    let checkPoint = [x, y];
+    for (let i = 0; i < collisionPointsArray.length; i++) {
+        if (checkPoint[0] === collisionPointsArray[i][0] && checkPoint[1] === collisionPointsArray[i][1]) {
+            return true;
+        }
+    }
+    return false;
+
+};
+
+
+function collisionPointExists(point) {
+    for (let i = 0; i < collisionPointsArray.length; i++) {
+        if (collisionPointsArray[i][0] === point[0] && collisionPointsArray[i][1] === point[1]) {
+            return true;
+        }
+    }
+    return false;
+
+};
