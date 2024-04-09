@@ -98,3 +98,46 @@ if (gamePlay === "yes") {
     }
 };
 
+// Function to create 'Lava Puddles' - randomly generates an x and a y
+
+function generateCollisionPoints(board, numPoints) {
+
+    playerPosition[0] = Math.floor(Math.random() * board.length);
+    playerPosition[1] = Math.floor(Math.random() * board[0].length);
+
+    let exitX = Math.floor(Math.random() * board.length);
+    let exitY = Math.floor(Math.random() * board[0].length);
+
+
+    // Checks that newX and newY aren't the same than the exit point
+
+    while (playerPosition[0] === exitX) {
+        exitX = Math.floor(Math.random() * board.length);
+    }
+
+
+    while (playerPosition[1] === exitY) {
+        exitY = Math.floor(Math.random() * board[0].length);
+    }
+
+
+    exitPosition[0] = exitX;
+    exitPosition[1] = exitY;
+    let uniquePoints = 0;
+
+
+    // Generates 5 unique collision points and stores them in collisionPointsArray
+    while (uniquePoints < numPoints) {
+
+        let x = Math.floor(Math.random() * board.length);
+        let y = Math.floor(Math.random() * board[0].length);
+
+        if ((x !== playerPosition[0] || y !== playerPosition[1]) &&
+            (x !== exitPosition[0] || y !== exitPosition[1]) &&
+            !collisionPointExists([x, y])) {
+            collisionPointsArray.push([x, y]);
+            uniquePoints++;
+        }
+    }
+};
+
